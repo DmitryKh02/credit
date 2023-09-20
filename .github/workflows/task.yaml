@@ -26,7 +26,7 @@ jobs:
 
       - name: Run maven command
         run: |
-          cd ./java
+          cd ./application
           mvn clean package test
 
 
