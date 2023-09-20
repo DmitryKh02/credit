@@ -1,0 +1,40 @@
+name: Test Spring Boot Applications
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+
+jobs:
+  runs-all-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      #      - name: Setup Java
+      #        uses: actions/setup-java@v3
+      #        with:
+      #          distribution: 'oracle'
+      #          java-version: '17'
+      #
+      #      - name: Setup Maven
+      #        uses: stCarolas/setup-maven@v4.5
+      #        with:
+      #          maven-version: 3.8.2
+      #
+      #      - name: All the Test and Coverage Checks
+      #        run: cd conveyor & mvn test
+      - uses: julia-actions/julia-processcoverage@v1
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+#      - name: SonarCloud Scan
+#        uses: sonarsource/sonarcloud-github-action@master
+#        env:
+#          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
