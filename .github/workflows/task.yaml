@@ -10,10 +10,10 @@ jobs:
   runs-all-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Change folder
-        run: ls -al | cd application
-#      - name: Checkout
-#        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run maven command
+        run: cd ./application | mvn clean package test
 
       #      - name: Setup Java
       #        uses: actions/setup-java@v3
