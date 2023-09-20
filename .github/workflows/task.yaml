@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: CF
-        run: |
-          cd ./application
+        run: cd ./application & mvn install
 
       - name: Checkout
         uses: actions/checkout@v3
