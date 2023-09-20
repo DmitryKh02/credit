@@ -10,9 +10,6 @@ jobs:
   runs-all-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: CF
-        run: cd ./application & mvn install
-
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -22,13 +19,14 @@ jobs:
             distribution: 'oracle'
             java-version: '17'
 
-      - name: Setup Maven
-        uses: stCarolas/setup-maven@v4.5
-        with:
-          maven-version: 3.8.2
+#      - name: Setup Maven
+#        uses: stCarolas/setup-maven@v4.5
+#        with:
+#          maven-version: 3.8.2
 
       - name: Run maven command
         run: |
+          cd ./java
           mvn clean package test
 
 
