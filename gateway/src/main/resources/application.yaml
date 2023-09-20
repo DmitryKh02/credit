@@ -1,0 +1,13 @@
+#APPLICATION
+spring:
+  application:
+    name: api-gateway
+server:
+  port: 8181
+
+#FEIGN CLIENT
+internal:
+  server:
+    url:
+      deal: http://localhost:8000/deal
+      application: http://localhost:8001/application

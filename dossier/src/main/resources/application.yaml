@@ -1,0 +1,44 @@
+spring:
+  mail:
+    host: smtp.gmail.com
+    username: example@gmail.com
+    password: password
+    port: 587
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+
+  kafka:
+    consumer:
+      bootstrap-servers: "localhost:9092"
+      group-id: "dossier"
+
+mail:
+  smtp:
+    starttls:
+      enable: true
+  debug: true
+
+application:
+  kafka:
+      topic:
+        finish-registration: "finish-registration"
+        create-documents: "create-documents"
+        send-documents: "send-documents"
+        send-ses: "send-ses"
+        credit-issued: "credit-issued"
+        application-denied: "application-denied"
+
+server:
+  port: 8003
+
+logging:
+  group:
+    dossier-message-sender: ru.neoflex.dossier.service, ru.neoflex.dossier.utils
+  level:
+    dossier-message-sender: TRACE

@@ -1,0 +1,91 @@
+version: "3.9"
+
+services:
+  #ZOOKEEPER
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.5.11.amd64
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  #KAFKA
+  kafka:
+    image: confluentinc/cp-kafka:5.5.11.amd64
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    restart: always
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+  #DATABASE
+  deal-db:
+    image: postgres
+    container_name: deal-db
+    restart: always
+    environment:
+      POSTGRES_DB: deal
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  #DEAL
+  deal-app:
+    image: deal
+    container_name: deal-application
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - deal-db
+      - kafka
+
+  #APPLICATION
+  application-app:
+    image: application
+    container_name: application
+    restart: always
+    ports:
+      - "8001:8001"
+
+  #CONVEYOR
+  conveyor-app:
+    image: conveyor
+    container_name: conveyor
+    restart: always
+    ports:
+      - "8002:8002"
+
+  #DOSSIER
+  dossier-app:
+    image: dossier
+    container_name: dossier
+    restart: always
+    ports:
+      - "8003:8003"
+    depends_on:
+      - kafka
+      - zookeeper
+
+  #GATEWAY
+  gateway-app:
+    image: gateway
+    container_name: gateway
+    restart: always
+    ports:
+      - "8181:8181"
+    depends_on:
+      - application-app
+      - deal-app

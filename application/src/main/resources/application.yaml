@@ -1,0 +1,15 @@
+spring:
+    application:
+        name: application
+logging:
+    group:
+        deal-business-flow: ru.neoflex.application.controller, ru.neoflex.application.service, ru.neoflex.application.utils
+    level:
+        deal-business-flow: TRACE
+
+internal:
+    server:
+        url: http://localhost:8000/
+
+server:
+    port: 8001
