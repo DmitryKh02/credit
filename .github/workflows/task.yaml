@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Change folder
-        run: cd application
+        run: ls -al | cd application
 #      - name: Checkout
 #        uses: actions/checkout@v3
 
