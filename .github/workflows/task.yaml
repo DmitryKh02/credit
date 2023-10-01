@@ -13,25 +13,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      #      - name: Setup Java
-      #        uses: actions/setup-java@v3
-      #        with:
-      #          distribution: 'oracle'
-      #          java-version: '17'
-      #
-      #      - name: Setup Maven
-      #        uses: stCarolas/setup-maven@v4.5
-      #        with:
-      #          maven-version: 3.8.2
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+            distribution: 'oracle'
+            java-version: '17'
+
+#      - name: Setup Maven
+#        uses: stCarolas/setup-maven@v4.5
+#        with:
+#          maven-version: 3.8.2
+
+      - name: Run maven command
+        run: |
+          cd ./application
+          mvn clean package test
+
+
       #
       #      - name: All the Test and Coverage Checks
       #        run: cd conveyor & mvn test
-      - uses: julia-actions/julia-processcoverage@v1
+#      - uses: julia-actions/julia-processcoverage@v1
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
+          fixes: "::/application"
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
 
 #      - name: SonarCloud Scan
 #        uses: sonarsource/sonarcloud-github-action@master
