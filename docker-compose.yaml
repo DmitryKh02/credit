@@ -44,7 +44,7 @@ services:
   #DEAL
   deal-app:
     image: deal
-    container_name: deal-application
+    container_name: deal
     restart: always
     ports:
       - "8000:8000"
